@@ -105,32 +105,6 @@ public class Main {
 
 
 
-//    private static void performDeposit() {
-//        System.out.println("Enter account number");
-//        String accountNo = scanner.nextLine().trim();
-//
-//        Account account = accounts.get(accountNo);
-//        if(account == null){
-//            System.out.println("Account not found");
-//            return;
-//        }
-//
-//        System.out.println("Enter deposit amount");
-//        String amountStr = scanner.nextLine().trim();
-//
-//        try{
-//            BigDecimal amount = new BigDecimal(amountStr);
-//            account.deposit(amount);
-//
-//            String transactionId = generateTransactionId();
-//            Transaction transaction = new Transaction(transactionId,accountNo, TransactionType.DEPOSIT, amount, LocalDateTime.now());
-//
-//            transactions.add(transaction);
-//            System.out.println("Deposit was successful! New balance: "+account.getBalance());
-//        }catch(NumberFormatException e){
-//            System.out.println("Invalid Amount");
-//        }
-//    }
 
     private static void performDeposit() {
         System.out.println("Enter account number");
@@ -174,34 +148,6 @@ public class Main {
         return "HDFC_TXN" + System.currentTimeMillis();
     }
 
-//    private static void performWithdraw() {
-//        System.out.println("Enter account number");
-//        String accountNo = scanner.nextLine().trim();
-//
-//        Account account = accounts.get(accountNo);
-//
-//        if(account == null){
-//            System.out.println("Account is not registered");
-//            return;
-//        }
-//        System.out.println("Enter the withdrawl amount");
-//        String amountStr = scanner.nextLine().trim();
-//
-//        try{
-//            BigDecimal amount = new BigDecimal(amountStr);
-//
-//            account.withdraw(amount);
-//            String transactionId = generateTransactionId();
-//
-//            Transaction transaction = new Transaction(transactionId,accountNo,TransactionType.WITHDRAWL, amount, LocalDateTime.now());
-//            transactions.add(transaction);
-//
-//            System.out.println("Withdrawal successful! New balance: " + account.getBalance());
-//
-//        }catch(InsufficientBalanceException e){
-//            System.out.println("Error: "+e.getMessage());
-//        }
-//    }
 
     private static void performWithdraw() {
         System.out.println("Enter account number");
@@ -246,47 +192,6 @@ public class Main {
         }
     }
 
-//    private static void performTransfer() {
-//        System.out.println("enter source account number");
-//        String fromAccountNo = scanner.nextLine().trim();
-//
-//        Account fromAccount = accounts.get(fromAccountNo);
-//        if (fromAccount == null) {
-//            System.out.println("Source account not found");
-//            return;
-//        }
-//
-//        System.out.println("enter destination account number");
-//        String toAccountNo = scanner.nextLine().trim();
-//
-//        Account toccount = accounts.get(toAccountNo);
-//        if (toccount == null) {
-//            System.out.println("Source account not found");
-//            return;
-//        }
-//
-//        if (fromAccountNo.equals(toAccountNo)) {
-//            System.out.println("cannot transfer");
-//            return;
-//        }
-//
-//        System.out.println("Enter amount");
-//        String amountStr = scanner.nextLine().trim();
-//        Transaction transaction = null;
-//        try {
-//            BigDecimal amount = new BigDecimal(amountStr);
-//            fromAccount.withdraw(amount);
-//            toccount.deposit(amount);
-//
-//            String transactionId = generateTransactionId();
-//            transaction = new Transaction(transactionId, fromAccountNo, TransactionType.TRANSFER, amount, LocalDateTime.now());
-//        } catch (NumberFormatException e) {
-//            System.out.println("Invalid amount entered");
-//        } catch (InsufficientBalanceException e) {
-//            System.out.println("Error: " + e.getMessage());
-//        }
-//        transactions.add(transaction);
-//    }
 
     private static void performTransfer() {
         System.out.println("Enter source account number:");
@@ -413,55 +318,6 @@ public class Main {
 
     }
 
-
-
-
-
-
-
-
-//    private static void createAccount() {
-//        System.out.println("Creating new account");
-//        System.out.println("Please enter customer id");
-//        String customerId = scanner.nextLine().trim();
-//
-//        Customer customer = customers.get(customerId);
-//        if(customer==null){
-//            System.out.println("Customer not found");
-//            return;
-//        }
-//        System.out.println("choose account type");
-//
-//        System.out.println("1. Savings Account(6% interest rate and min balance of Rs1000)");
-//        System.out.println("2. Current Account(4% interest rate and no min balance");
-//        System.out.println("select type");
-//
-//        int typeChoice = getInput();
-//        Account account = null;
-//        System.out.println("Enter initial balance");
-//        String  balance = scanner.nextLine().trim();
-//
-//        try{
-//            BigDecimal initialBalance = new BigDecimal(balance);
-//            String accountNo = generateAccountNo();
-//
-//            switch(typeChoice){
-//                case 1:
-//                    account = new SavingsAccount(accountNo, customerId, initialBalance);
-//                    break;
-//                case 2:
-//                    account = new CurrentAccount(accountNo, customerId,initialBalance);
-//                    break;
-//                default:
-//                    System.out.println("invalid");
-//                    return;
-//            }
-//            accounts.put(accountNo,account);
-//            System.out.println("Congratulations!! accountNo is:"+accountNo);
-//        }catch(NumberFormatException e){
-//            System.out.println("invalid balance amount");
-//        }
-//    }
 
     private static void createAccount() {
         System.out.println("Creating new account");
