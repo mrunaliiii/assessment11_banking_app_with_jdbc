@@ -283,41 +283,36 @@ public class Main {
 
 
     private static void viewTransactionHistory() {
-
         System.out.println("\n ---------- Transaction History --------");
-
-        System.out.println("enter account no: ");
+        System.out.println("Enter account no: ");
         String accountNo = scanner.nextLine().trim();
 
-        Account account = accounts.get(accountNo);
-        if (account == null){
-            System.out.println("Account No FOUND!!! ");
-            return;
+        try (Connection conn = DBConnectionUtil.getConnection()) {
+            TransactionDAO txnDAO = new TransactionDAO(conn);
+            List<Transaction> accountTransactions = txnDAO.getTransactionsByAccount(accountNo);
+
+            if (accountTransactions.isEmpty()) {
+                System.out.println("No Transaction found!!!");
+                return;
+            }
+
+            // Print sorted transactions
+            accountTransactions.stream()
+                    .sorted(Comparator.comparing(Transaction::getTimestamp).reversed())
+                    .forEach(System.out::println);
+
+            // Summary
+            Map<TransactionType, Long> transactionSummary = accountTransactions.stream()
+                    .collect(Collectors.groupingBy(Transaction::getType, Collectors.counting()));
+
+            System.out.println("\n ---------- Transaction Summary --------");
+            transactionSummary.forEach((type, count) ->
+                    System.out.println(type.getDisplayName() + " : " + count + " Transaction"));
+
+        } catch (Exception e) {
+            System.out.println("Error fetching transactions: " + e.getMessage());
         }
-
-        List<Transaction> accountTransaction = transactions.stream()
-                .filter(t -> accountNo.equals(t.getAccountNo()))
-
-                .sorted(Comparator.comparing(Transaction::getTimestamp).reversed())
-                .collect(Collectors.toList());
-
-        if (accountTransaction.isEmpty()){
-            System.out.println("No Transaction found!!!");
-        }
-
-        for (Transaction transaction: accountTransaction){
-            System.out.println(transaction.toString());
-        }
-
-        Map<TransactionType, Long> transactionSummary = accountTransaction.stream()
-                .collect(Collectors.groupingBy(Transaction::getType, Collectors.counting()));
-
-        System.out.println("\n ---------- Transaction Summary --------");
-        transactionSummary.forEach((type,count)->
-                System.out.println(type.getDisplayName() + " : " + count + " Transaction"));
-
     }
-
 
     private static void createAccount() {
         System.out.println("Creating new account");
